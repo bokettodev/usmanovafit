@@ -11,7 +11,7 @@ const goalChips = [
 ];
 ---
 
-<section id="programs" class="flex min-h-[100svh] snap-start flex-col justify-center bg-soft pb-28 pt-20">
+<section id="programs" class="flex min-h-[100svh] snap-start flex-col justify-center bg-soft pb-24 pt-16">
   <div class="mx-auto w-full max-w-6xl">
     <!-- Заголовок -->
     <div class="mx-auto max-w-2xl px-4 text-center sm:px-6">
@@ -55,7 +55,7 @@ const goalChips = [
         programs.map((p, i) => (
           <article
             class:list={[
-              'prog-card group relative flex h-[56svh] max-h-[440px] w-[80vw] max-w-[20rem] shrink-0 flex-col overflow-hidden rounded-card bg-white ring-1 ring-black/5 transition-[transform,box-shadow] duration-300 hover:shadow-2xl hover:shadow-pink/10',
+              'prog-card group relative flex h-[48svh] max-h-[400px] w-[80vw] max-w-[20rem] shrink-0 flex-col overflow-hidden rounded-card bg-white ring-1 ring-black/5 transition-[transform,box-shadow] duration-300 hover:shadow-2xl hover:shadow-pink/10',
               p.flagship && 'ring-2 ring-pink',
             ]}
             data-goals={p.goals.join(' ')}

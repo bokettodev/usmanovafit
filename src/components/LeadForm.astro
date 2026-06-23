@@ -9,12 +9,12 @@ const OFFER_ID = '8478451';
 
 <section
   id="form"
-  class="relative flex min-h-[100svh] snap-start items-center overflow-hidden bg-gradient-to-br from-pink via-pink-bright to-pink-hot pb-28 pt-20"
+  class="relative flex min-h-[100svh] snap-start items-center overflow-hidden bg-gradient-to-br from-pink via-pink-bright to-pink-hot pb-24 pt-16"
 >
   <div aria-hidden="true" class="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-white/15 blur-3xl"></div>
   <div aria-hidden="true" class="pointer-events-none absolute -bottom-24 -right-16 h-80 w-80 rounded-full bg-pink-hot/30 blur-3xl"></div>
 
-  <div class="relative mx-auto grid max-w-5xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-2">
+  <div class="relative mx-auto grid max-w-5xl items-center gap-6 px-4 sm:gap-8 sm:px-6 lg:grid-cols-2 lg:gap-10">
     <!-- Текст -->
     <div class="text-center text-white lg:text-left">
       <h2 class="reveal text-3xl font-extrabold tracking-tight sm:text-4xl">
@@ -23,7 +23,7 @@ const OFFER_ID = '8478451';
       <p class="reveal mt-4 text-lg text-white/90" style="--reveal-delay:80">
         Подберём программу под вашу цель и уровень. Это бесплатно и быстро.
       </p>
-      <ul class="reveal mx-auto mt-6 max-w-sm space-y-2.5 text-left lg:mx-0" style="--reveal-delay:140">
+      <ul class="reveal mx-auto mt-6 hidden max-w-sm space-y-2.5 text-left sm:block lg:mx-0" style="--reveal-delay:140">
         {
           ['Разберём вашу цель и уровень подготовки', 'Подберём подходящую программу Кати', 'Без обязательств и навязывания'].map(
             (item) => (
@@ -47,7 +47,7 @@ const OFFER_ID = '8478451';
         method="post"
         target="gc_sink"
         novalidate
-        class="rounded-card glass-frost p-6 sm:p-8"
+        class="rounded-card glass-frost p-5 sm:p-7"
       >
         <!-- Скрытые поля GetCourse (как на боевой форме) -->
         <input type="hidden" name="formParams[setted_offer_id]" value="" />
@@ -57,7 +57,7 @@ const OFFER_ID = '8478451';
         <input type="hidden" name="__gc__internal__form__helper" value={HELPER} />
         <input type="hidden" name="__gc__internal__form__helper_ref" value="" />
 
-        <div id="formFields" class="space-y-4">
+        <div id="formFields" class="space-y-3">
           <h3 class="text-xl font-bold text-ink">Получить подбор программы</h3>
 
           <div>
