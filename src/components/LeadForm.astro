@@ -1,0 +1,213 @@
+---
+// Форма повторяет боевую GetCourse-форму usmanovafit (block-public/process).
+// Сабмит уходит в скрытый iframe → страница не перезагружается, показываем свой success.
+const FORM_ACTION = 'https://usmanovafit.gymteam.ru/pl/lite/block-public/process?id=2236734354';
+// helper = страница-источник этой формы (id=2236734354 взят с kdz_june)
+const HELPER = 'https://usmanovafit.gymteam.ru/kdz_june';
+const OFFER_ID = '8478451';
+---
+
+<section
+  id="form"
+  class="relative flex min-h-[100svh] snap-start items-center overflow-hidden bg-gradient-to-br from-pink via-pink-bright to-pink-hot pb-28 pt-20"
+>
+  <div aria-hidden="true" class="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-white/15 blur-3xl"></div>
+  <div aria-hidden="true" class="pointer-events-none absolute -bottom-24 -right-16 h-80 w-80 rounded-full bg-pink-hot/30 blur-3xl"></div>
+
+  <div class="relative mx-auto grid max-w-5xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-2">
+    <!-- Текст -->
+    <div class="text-center text-white lg:text-left">
+      <h2 class="reveal text-3xl font-extrabold tracking-tight sm:text-4xl">
+        Не знаете, с чего начать?
+      </h2>
+      <p class="reveal mt-4 text-lg text-white/90" style="--reveal-delay:80">
+        Подберём программу под вашу цель и уровень. Это бесплатно и быстро.
+      </p>
+      <ul class="reveal mx-auto mt-6 max-w-sm space-y-2.5 text-left lg:mx-0" style="--reveal-delay:140">
+        {
+          ['Разберём вашу цель и уровень подготовки', 'Подберём подходящую программу Кати', 'Без обязательств и навязывания'].map(
+            (item) => (
+              <li class="flex items-start gap-2.5 text-white/95">
+                <span class="mt-0.5 flex h-5 w-5 flex-none items-center justify-center rounded-full bg-white/25 text-xs">✓</span>
+                <span>{item}</span>
+              </li>
+            ),
+          )
+        }
+      </ul>
+    </div>
+
+    <!-- Форма -->
+    <div class="reveal" style="--reveal-delay:120">
+      <iframe name="gc_sink" id="gc_sink" title="Цель отправки формы" tabindex="-1" aria-hidden="true" class="hidden"></iframe>
+
+      <form
+        id="leadForm"
+        action={FORM_ACTION}
+        method="post"
+        target="gc_sink"
+        novalidate
+        class="rounded-card glass-frost p-6 sm:p-8"
+      >
+        <!-- Скрытые поля GetCourse (как на боевой форме) -->
+        <input type="hidden" name="formParams[setted_offer_id]" value="" />
+        <input type="hidden" name="formParams[willCreatePaidDeal]" value="0" />
+        <input type="hidden" name="formParams[need_offer]" value="1" />
+        <input type="hidden" name="formParams[offer_id][]" value={OFFER_ID} />
+        <input type="hidden" name="__gc__internal__form__helper" value={HELPER} />
+        <input type="hidden" name="__gc__internal__form__helper_ref" value="" />
+
+        <div id="formFields" class="space-y-4">
+          <h3 class="text-xl font-bold text-ink">Получить подбор программы</h3>
+
+          <div>
+            <label for="lf-name" class="sr-only">Имя</label>
+            <input id="lf-name" name="formParams[full_name]" type="text" maxlength="60" placeholder="Введите ваше имя" autocomplete="name" class="lf-input" aria-describedby="err-name" />
+            <p id="err-name" class="lf-err"></p>
+          </div>
+
+          <div>
+            <label for="lf-phone" class="sr-only">Телефон</label>
+            <input id="lf-phone" name="formParams[phone]" type="tel" maxlength="60" inputmode="tel" placeholder="+7 (___) ___-__-__" autocomplete="tel" class="lf-input" aria-describedby="err-phone" />
+            <p id="err-phone" class="lf-err"></p>
+          </div>
+
+          <div>
+            <label for="lf-email" class="sr-only">E-mail</label>
+            <input id="lf-email" name="formParams[email]" type="email" maxlength="60" placeholder="E-mail (необязательно)" autocomplete="email" class="lf-input" aria-describedby="err-email" />
+            <p id="err-email" class="lf-err"></p>
+          </div>
+
+          <label class="flex items-start gap-2 text-xs leading-snug text-muted">
+            <input id="lf-consent" type="checkbox" class="mt-0.5 h-4 w-4 flex-none accent-pink" />
+            <span>Соглашаюсь с <a href="https://usmanovafit.gymteam.ru/protection_fitnes" target="_blank" rel="noreferrer" class="text-pink underline">политикой конфиденциальности</a> и обработкой персональных данных</span>
+          </label>
+          <p id="err-consent" class="lf-err"></p>
+
+          <button
+            type="submit"
+            id="lf-submit"
+            class="w-full rounded-full bg-pink px-6 py-4 text-base font-semibold text-white shadow-lg shadow-pink/30 transition-transform duration-200 hover:-translate-y-0.5 hover:bg-pink-hot disabled:cursor-not-allowed disabled:opacity-70"
+          >
+            Получить подбор
+          </button>
+          <p class="text-center text-xs text-muted">
+            Нажимая кнопку, вы оставляете заявку — мы свяжемся с вами в ближайшее время.
+          </p>
+        </div>
+
+        <!-- Успех -->
+        <div id="formSuccess" hidden role="status" aria-live="polite" class="py-6 text-center">
+          <div class="check-ring mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-pink/15">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path class="check-path" d="M4 12.5 L10 18.5 L20 6.5" pathLength="1" stroke="var(--color-pink)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <h3 class="mt-4 text-xl font-bold text-ink">Заявка отправлена!</h3>
+          <p class="mx-auto mt-2 max-w-xs text-muted">
+            Спасибо! Мы свяжемся с вами и подберём программу под вашу цель.
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Компактный футер (вместо отдельного экрана) -->
+  <p class="absolute inset-x-0 bottom-[5.5rem] px-6 text-center text-xs text-white/70 sm:bottom-24">
+    ©️ ООО «Онлайн Фитнес», 2020 — 2026 · Учебная реплика лендинга для тестового задания
+  </p>
+</section>
+
+<style>
+  .lf-input {
+    width: 100%;
+    border-radius: 14px;
+    border: 1.5px solid #e6e6e6;
+    padding: 14px 16px;
+    font-size: 16px; /* >=16px — чтобы iOS не зумил поле */
+    color: #0b0c0f;
+    background: #fff;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .lf-input::placeholder { color: #9a9aa2; }
+  .lf-input:focus { border-color: #f66297; box-shadow: 0 0 0 4px rgba(246, 98, 151, .12); }
+  .lf-input[aria-invalid="true"] { border-color: #ef4444; box-shadow: 0 0 0 4px rgba(239, 68, 68, .1); }
+  .lf-err { margin-top: 6px; font-size: 12px; color: #ef4444; }
+  .lf-err:empty { display: none; }
+</style>
+
+<script>
+  const form = document.getElementById('leadForm') as HTMLFormElement | null;
+  if (form) {
+    const sink = document.getElementById('gc_sink') as HTMLIFrameElement;
+    const fields = document.getElementById('formFields') as HTMLElement;
+    const success = document.getElementById('formSuccess') as HTMLElement;
+    const name = document.getElementById('lf-name') as HTMLInputElement;
+    const phone = document.getElementById('lf-phone') as HTMLInputElement;
+    const email = document.getElementById('lf-email') as HTMLInputElement;
+    const consent = document.getElementById('lf-consent') as HTMLInputElement;
+    const submitBtn = document.getElementById('lf-submit') as HTMLButtonElement;
+    let submitting = false;
+
+    // RU-маска телефона
+    phone.addEventListener('input', () => {
+      let d = phone.value.replace(/\D/g, '');
+      if (d.startsWith('8')) d = '7' + d.slice(1);
+      if (d.length && d[0] !== '7') d = '7' + d;
+      d = d.slice(0, 11);
+      let out = '+7';
+      if (d.length > 1) out += ' (' + d.slice(1, 4);
+      if (d.length >= 4) out += ') ' + d.slice(4, 7);
+      if (d.length >= 7) out += '-' + d.slice(7, 9);
+      if (d.length >= 9) out += '-' + d.slice(9, 11);
+      phone.value = d.length ? out : '';
+    });
+
+    const setErr = (id: string, msg: string) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = msg;
+    };
+    const mark = (input: HTMLInputElement, bad: boolean) =>
+      input.setAttribute('aria-invalid', bad ? 'true' : 'false');
+
+    const validate = (): boolean => {
+      let ok = true;
+      if (name.value.trim().length < 2) { setErr('err-name', 'Введите ваше имя'); mark(name, true); ok = false; }
+      else { setErr('err-name', ''); mark(name, false); }
+
+      if (phone.value.replace(/\D/g, '').length < 11) { setErr('err-phone', 'Введите корректный телефон'); mark(phone, true); ok = false; }
+      else { setErr('err-phone', ''); mark(phone, false); }
+
+      const ev = email.value.trim();
+      if (ev && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(ev)) { setErr('err-email', 'Проверьте e-mail'); mark(email, true); ok = false; }
+      else { setErr('err-email', ''); mark(email, false); }
+
+      if (!consent.checked) { setErr('err-consent', 'Нужно согласие на обработку данных'); ok = false; }
+      else setErr('err-consent', '');
+
+      return ok;
+    };
+
+    form.addEventListener('submit', (e) => {
+      if (!validate()) { e.preventDefault(); return; }
+      submitting = true;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Отправляем…';
+      // нативный сабмит уходит в iframe gc_sink
+    });
+
+    sink.addEventListener('load', () => {
+      if (!submitting) return; // игнорируем первичную загрузку iframe
+      submitting = false;
+      fields.style.display = 'none';
+      success.hidden = false;
+      // честный +1 к счётчику «тренируются прямо сейчас» в hero
+      const live = document.getElementById('liveCount');
+      if (live) {
+        const n = parseInt((live.textContent || '0').replace(/\D/g, ''), 10) || 0;
+        live.textContent = new Intl.NumberFormat('ru-RU').format(n + 1);
+      }
+    });
+  }
+</script>

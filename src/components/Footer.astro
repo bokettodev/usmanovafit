@@ -1,0 +1,32 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-ink py-12 text-white/70">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
+      <div>
+        <div class="text-lg font-extrabold text-white">USMANOVA<span class="text-pink">FIT</span></div>
+        <p class="mt-2 max-w-sm text-sm text-white/60">
+          Авторские фитнес-программы чемпионки Кати Усмановой. Похудение, фигура, зал, форма после родов — без диет.
+        </p>
+      </div>
+
+      <nav class="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+        <a href="#programs" class="transition-colors hover:text-pink">Программы</a>
+        <a href="#form" class="transition-colors hover:text-pink">Подбор программы</a>
+        <a href="https://usmanovafit.gymteam.ru/oferta_fitnes" target="_blank" rel="noreferrer" class="transition-colors hover:text-pink">Оферта</a>
+        <a href="https://usmanovafit.gymteam.ru/protection_fitnes" target="_blank" rel="noreferrer" class="transition-colors hover:text-pink">Политика конфиденциальности</a>
+      </nav>
+    </div>
+
+    <hr class="my-8 border-white/10" />
+
+    <div class="flex flex-col gap-3 text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between">
+      <p>©️ ООО «Онлайн Фитнес», 2020 — {year}</p>
+      <p class="max-w-xl">
+        Учебная реплика 3 экранов лендинга usmanovafit.gymteam.ru, собранная для тестового задания. Не является публичной офертой.
+      </p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,171 @@
+---
+import { Image } from 'astro:assets';
+import { programs } from '../data/programs';
+
+const goalChips = [
+  { id: 'all', label: 'Все' },
+  { id: 'pohudet', label: 'Похудеть' },
+  { id: 'popa', label: 'Попа' },
+  { id: 'jivot', label: 'Живот' },
+  { id: 'relief', label: 'Рельеф' },
+];
+---
+
+<section id="programs" class="flex min-h-[100svh] snap-start flex-col justify-center bg-soft pb-28 pt-20">
+  <div class="mx-auto w-full max-w-6xl">
+    <!-- Заголовок -->
+    <div class="mx-auto max-w-2xl px-4 text-center sm:px-6">
+      <span class="reveal text-xs font-semibold uppercase tracking-wide text-pink sm:text-sm">
+        Программы Кати Усмановой
+      </span>
+      <h2 class="reveal mt-2 text-2xl font-extrabold tracking-tight sm:text-4xl" style="--reveal-delay:60">
+        Тренировки дома
+      </h2>
+      <p class="reveal mx-auto mt-2 max-w-xl text-sm text-muted sm:text-base" style="--reveal-delay:120">
+        От старта с нуля до рельефа — выбирайте под свою цель. Листайте карточки →
+      </p>
+    </div>
+
+    <!-- Фильтр по цели -->
+    <div class="reveal mt-5 flex flex-wrap justify-center gap-2 px-4" role="group" aria-label="Фильтр программ по цели" style="--reveal-delay:160">
+      {
+        goalChips.map((c, i) => (
+          <button
+            type="button"
+            class="goal-chip glass rounded-full px-4 py-2 text-sm font-semibold text-ink/70 transition-colors hover:text-pink"
+            data-goal={c.id}
+            aria-pressed={i === 0 ? 'true' : 'false'}
+          >
+            {c.label}
+          </button>
+        ))
+      }
+    </div>
+
+    <!-- Свайп карточек (горизонтальный, влезает в экран) -->
+    <div class="relative mt-6">
+      <button id="progPrev" type="button" aria-label="Предыдущие" class="prog-arrow glass left-1 hidden lg:flex">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>
+      </button>
+      <div
+        id="progScroller"
+        class="flex gap-4 overflow-x-auto px-4 pb-4 sm:px-6 lg:px-14 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+      {
+        programs.map((p, i) => (
+          <article
+            class:list={[
+              'prog-card group relative flex h-[56svh] max-h-[440px] w-[80vw] max-w-[20rem] shrink-0 flex-col overflow-hidden rounded-card bg-white ring-1 ring-black/5 transition-[transform,box-shadow] duration-300 hover:shadow-2xl hover:shadow-pink/10',
+              p.flagship && 'ring-2 ring-pink',
+            ]}
+            data-goals={p.goals.join(' ')}
+          >
+            {/* Фото сверху — cutout на мягкой сцене */}
+            <div class="relative h-[52%] overflow-hidden bg-gradient-to-b from-pink-soft to-white">
+              <Image
+                src={p.img}
+                alt={`${p.tag} ${p.title}`}
+                widths={[220, 320, 440]}
+                sizes="80vw"
+                class="absolute inset-0 h-full w-full object-contain object-bottom transition-transform duration-500 group-hover:scale-[1.04]"
+              />
+              {p.flagship && p.badge && (
+                <span class="absolute left-3 top-3 inline-block rounded-full bg-pink px-3 py-1 text-xs font-semibold text-white shadow-sm">
+                  {p.badge}
+                </span>
+              )}
+            </div>
+
+            {/* Текст снизу */}
+            <div class="flex flex-1 flex-col p-4 sm:p-5">
+              <div class="text-xs font-semibold uppercase tracking-wide text-pink">{p.tag}</div>
+              <h3 class="mt-1 text-lg font-bold leading-tight">{p.title}</h3>
+              <p class="mt-1.5 line-clamp-3 text-sm leading-relaxed text-muted">{p.text}</p>
+              <a
+                href="#form"
+                class="mt-auto inline-flex w-fit items-center gap-1.5 rounded-full bg-pink px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-pink-hot"
+              >
+                Подробнее
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </a>
+            </div>
+          </article>
+        ))
+      }
+      </div>
+      <button id="progNext" type="button" aria-label="Следующие" class="prog-arrow glass right-1 hidden lg:flex">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .goal-chip[aria-pressed='true'] {
+    background: var(--color-pink);
+    border-color: var(--color-pink);
+    color: #fff;
+  }
+  .prog-card.is-hidden { display: none; }
+  .prog-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    height: 2.75rem;
+    width: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    color: var(--color-pink);
+  }
+  .prog-arrow svg { height: 24px; width: 24px; }
+</style>
+
+<script>
+  const scroller = document.getElementById('progScroller');
+  const chips = Array.from(document.querySelectorAll<HTMLButtonElement>('.goal-chip'));
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('.prog-card'));
+
+  // Фильтр по цели — реально скрывает неподходящие карточки
+  if (chips.length && cards.length) {
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const goal = chip.getAttribute('data-goal') || 'all';
+        chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+        cards.forEach((card) => {
+          const goals = (card.getAttribute('data-goals') || '').split(' ').filter(Boolean);
+          const match = goal === 'all' || goals.includes(goal);
+          card.classList.toggle('is-hidden', !match);
+        });
+        scroller?.scrollTo({ left: 0, behavior: 'smooth' });
+      });
+    });
+  }
+
+  // Горизонтальная прокрутка галереи: стрелки + колесо мыши (десктоп)
+  if (scroller) {
+    const step = () => Math.min(scroller.clientWidth * 0.9, 360);
+    document
+      .getElementById('progPrev')
+      ?.addEventListener('click', () => scroller.scrollBy({ left: -step(), behavior: 'smooth' }));
+    document
+      .getElementById('progNext')
+      ?.addEventListener('click', () => scroller.scrollBy({ left: step(), behavior: 'smooth' }));
+    scroller.addEventListener(
+      'wheel',
+      (e) => {
+        if (Math.abs(e.deltaX) >= Math.abs(e.deltaY)) return; // горизонтальный жест трекпада — нативно
+        const max = scroller.scrollWidth - scroller.clientWidth;
+        const atStart = scroller.scrollLeft <= 0;
+        const atEnd = scroller.scrollLeft >= max - 1;
+        if ((e.deltaY < 0 && atStart) || (e.deltaY > 0 && atEnd)) return; // на краю галереи — отдаём вертикаль странице
+        scroller.scrollLeft = Math.max(0, Math.min(max, scroller.scrollLeft + e.deltaY));
+        e.preventDefault();
+      },
+      { passive: false },
+    );
+  }
+</script>
