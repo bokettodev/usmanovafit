@@ -1,43 +1,41 @@
 ---
 // Плавающий стеклянный таб-бар (app-style). Активный экран подсвечивается по скроллу.
-// Структура .liquidGL > .content нужна для эксперимента liquidGL (рефракция). Без него — спекуляр-стекло (.glass-liquid) как фолбэк.
+// Отступ снизу учитывает safe-area iPhone (home-indicator).
 ---
 
 <nav
   id="appnav"
   aria-label="Навигация по разделам"
-  data-liquid-ignore
-  class="liquidGL glass-liquid fixed bottom-4 left-1/2 z-50 -translate-x-1/2 overflow-hidden rounded-full p-1.5 sm:bottom-6"
+  class="glass-liquid fixed left-1/2 z-50 -translate-x-1/2 rounded-full p-1.5"
+  style="bottom: calc(1rem + env(safe-area-inset-bottom))"
 >
-  <div class="content" style="position: relative; z-index: 3; pointer-events: auto">
-    <ul class="flex items-center gap-1">
-      <li>
-        <a href="#top" data-nav="top" class="appnav-item is-active" aria-label="Главная">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M3 10.5 12 3l9 7.5" />
-            <path d="M5 9.5V21h5v-6h4v6h5V9.5" />
-          </svg>
-          <span>Главная</span>
-        </a>
-      </li>
-      <li>
-        <a href="#programs" data-nav="programs" class="appnav-item" aria-label="Программы">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M6.5 7v10M17.5 7v10M3.5 9.5v5M20.5 9.5v5M6.5 12h11" />
-          </svg>
-          <span>Программы</span>
-        </a>
-      </li>
-      <li>
-        <a href="#form" data-nav="form" class="appnav-item" aria-label="Заявка">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M21 11.5a7.5 7.5 0 0 1-10.9 6.7L4 20l1.8-4.9A7.5 7.5 0 1 1 21 11.5z" />
-          </svg>
-          <span>Заявка</span>
-        </a>
-      </li>
-    </ul>
-  </div>
+  <ul class="flex items-center gap-1">
+    <li>
+      <a href="#top" data-nav="top" class="appnav-item is-active" aria-label="Главная">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 10.5 12 3l9 7.5" />
+          <path d="M5 9.5V21h5v-6h4v6h5V9.5" />
+        </svg>
+        <span>Главная</span>
+      </a>
+    </li>
+    <li>
+      <a href="#programs" data-nav="programs" class="appnav-item" aria-label="Программы">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6.5 7v10M17.5 7v10M3.5 9.5v5M20.5 9.5v5M6.5 12h11" />
+        </svg>
+        <span>Программы</span>
+      </a>
+    </li>
+    <li>
+      <a href="#form" data-nav="form" class="appnav-item" aria-label="Заявка">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 11.5a7.5 7.5 0 0 1-10.9 6.7L4 20l1.8-4.9A7.5 7.5 0 1 1 21 11.5z" />
+        </svg>
+        <span>Заявка</span>
+      </a>
+    </li>
+  </ul>
 </nav>
 
 <script>

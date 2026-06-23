@@ -21,7 +21,7 @@ const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <link rel="icon" type="image/svg+xml" href={asset('favicon.svg')} />
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -120,35 +120,6 @@ const asset = (p: string) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}
         window.addEventListener('scroll', onScroll, { passive: true });
         window.addEventListener('resize', onScroll, { passive: true });
       }
-    </script>
-
-    {/* liquidGL — эксперимент рефракции таб-бара (Safari/iOS-совместимо через WebGL+html2canvas).
-        Чтобы выключить — удалить этот блок и вернуть BottomNav к чистому .glass-liquid. */}
-    <!-- html2canvas-pro: форк с поддержкой oklab/oklch/color-mix (Tailwind v4) -->
-    <script src={asset('vendor/html2canvas-pro.min.js')} defer></script>
-    <script src={asset('vendor/liquidGL.js')} defer></script>
-    <script is:inline>
-      window.addEventListener('load', function () {
-        if (typeof window.liquidGL !== 'function') return;
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        try {
-          window.liquidGL({
-            snapshot: 'body',
-            target: '#appnav',
-            resolution: 2,
-            refraction: 0.02,
-            bevelDepth: 0.08,
-            bevelWidth: 0.15,
-            frost: 2,
-            shadow: true,
-            specular: true,
-            reveal: 'fade',
-            tilt: false,
-          });
-        } catch (e) {
-          console.warn('liquidGL init failed', e);
-        }
-      });
     </script>
   </body>
 </html>
